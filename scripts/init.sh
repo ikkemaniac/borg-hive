@@ -21,12 +21,12 @@ echo "MIGRATE:   ${MIGRATE}"
 echo "FIXTURES:  ${FIXTURES}"
 
 #
-# DB INIT
+# Check DB 
 #
-echo "Waiting for database..."
+echo "Probing database instance..."
 
-while ! nc -z db 3306; do
 i=1
+while ! $(nc -z db 3306 &> /dev/null); do
   sleep 1
   
   if [[ $i -gt ${APP_DB_TIMEOUT} ]];
@@ -37,8 +37,7 @@ i=1
   echo "Ping database instance(${i})"
   ((i=i+1))
 done
-
-echo "DB started"
+echo "Database instance responded"
 
 #
 # STATIC FILES
