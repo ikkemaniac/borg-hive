@@ -14,6 +14,7 @@ EOF
 DEBUG="${DEBUG:-True}"
 MIGRATE="${MIGRATE:-True}"
 FIXTURES="${FIXTURES:-True}"
+APP_DB_TIMEOUT="${APP_DB_TIMEOUT:-60}"
 
 echo "DEBUG:     ${DEBUG}"
 echo "MIGRATE:   ${MIGRATE}"
@@ -25,7 +26,16 @@ echo "FIXTURES:  ${FIXTURES}"
 echo "Waiting for database..."
 
 while ! nc -z db 3306; do
+i=1
   sleep 1
+  
+  if [[ $i -gt ${APP_DB_TIMEOUT} ]];
+  then
+    echo "ERROR: Could not connect to 'db:3306'"
+    exit 1
+  fi
+  echo "Ping database instance(${i})"
+  ((i=i+1))
 done
 
 echo "DB started"
