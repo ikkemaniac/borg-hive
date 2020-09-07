@@ -22,16 +22,13 @@ echo "FIXTURES:  ${FIXTURES}"
 #
 # DB INIT
 #
-if [[ -z "$MYSQL_DATABASE" ]];
-then
-    echo "Waiting for database..."
+echo "Waiting for database..."
 
-    while ! nc -z db 3306; do
-      sleep 1
-    done
+while ! nc -z db 3306; do
+  sleep 1
+done
 
-    echo "DB started"
-fi
+echo "DB started"
 
 #
 # STATIC FILES
