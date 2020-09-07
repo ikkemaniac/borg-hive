@@ -19,12 +19,6 @@ echo "DEBUG:     ${DEBUG}"
 echo "MIGRATE:   ${MIGRATE}"
 echo "FIXTURES:  ${FIXTURES}"
 
-
-#
-# STATIC FILES
-#
-./manage.py collectstatic --noinput
-
 #
 # DB INIT
 #
@@ -38,6 +32,12 @@ then
 
     echo "DB started"
 fi
+
+#
+# STATIC FILES
+#
+./manage.py collectstatic --noinput
+
 
 #
 # MIGRATE
